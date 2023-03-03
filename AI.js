@@ -75,7 +75,7 @@ const fetchAiDetail = (id) =>{
 }
 
 const showAiDetail = (detail)=>{
-  console.log(detail.input_output_examples[0].input);
+  console.log(detail.description);
   const modalBody = document.getElementById('modal-body');
   modalBody.textContent = "";
   const inModal = document.createElement("div");
@@ -84,11 +84,11 @@ const showAiDetail = (detail)=>{
   <div class="w-50 card border border-danger bg-modalCard">
   <h5 class="mt-3 mr-2 text-center">${detail.description}</h5>
   <div class="d-flex mt-2 justify-content-center gap-4">
-  <h6 class="bg-light border py-2 px-2 text-success fs-6 border-4 text-center border-light rounded">${detail.pricing[0].price}<br>
-  ${detail.pricing[0].plan}</h6>
-  <h6 class="bg-light border py-2 px-2 text-warning fs-6 border-4 border-light rounded text-center">${detail.pricing[1].price}<br>
-  ${detail.pricing[1].plan}</h6>
-  <h6 class="bg-light border py-2 px-2 fs-6 text-danger border-4 border-light rounded text-center">${detail.pricing[2].price}<br>
+  <h6 class="bg-light border py-2 px-2 text-success fs-6 border-4 text-center border-light rounded">${(detail.pricing==null)? "Free of Cost": (detail.pricing[0].price==0)? "Free of Cost":(detail.pricing[0].price=="No cost")? "Free of Cost":detail.pricing[0].price}<br>
+  ${(detail.pricing==null)? "Basic" : (detail.pricing[0].plan=="Free")?"Basic":detail.pricing[0].plan}</h6>
+  <h6 class="bg-light border py-2 px-2 text-warning fs-6 border-4 border-light rounded text-center">${(detail.pricing==null)? "Free of Cost":(detail.pricing[1].price=="No cost")? "Free of Cost":detail.pricing[1].price}<br>
+  ${detail.pricing==null?"Free of Cost":detail.pricing[1].plan}</h6>
+  <h6 class="bg-light border py-2 px-2 fs-6 text-danger border-4 border-light rounded text-center">${detail.pricing[2].price!="No cost"?detail.pricing[2].price:"Free of cost"}<br>
   ${detail.pricing[2].plan}</h6>
   </div>
   <div class=" d-flex justify-content-center gap-3">
