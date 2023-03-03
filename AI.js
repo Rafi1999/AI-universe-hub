@@ -31,7 +31,7 @@ const ShowAIData = (data,dataLimit) => {
           <h5 class="mt-2">${element.name}</h5>
           <div class="d-flex justify-content-between">
           <p class="text-secondary"><i class="fa-solid fa-calendar-day"></i></i> ${element.published_in}</p>
-          <i class="fas fa-arrow-right" onclick="fetchAiDetail('${element.id}');toggleSpinner(true)" style="color:red"  data-bs-toggle="modal"
+          <i class="fas fa-arrow-right" onclick="fetchAiDetail('${element.id}')" style="color:red"  data-bs-toggle="modal"
         data-bs-target="#exampleModal"></i>
           </div>
         </ul>
@@ -75,40 +75,43 @@ const fetchAiDetail = (id) =>{
 }
 
 const showAiDetail = (detail)=>{
-  console.log(detail);
+  console.log(detail.input_output_examples[0].input);
   const modalBody = document.getElementById('modal-body');
   modalBody.textContent = "";
   const inModal = document.createElement("div");
-  inModal.classList.add("container","d-flex","gap-3","justify-content-center");
+  inModal.classList.add("container","d-flex","gap-3","justify-content-center","w-auto","mb-3");
   inModal.innerHTML = `
-  <div class=" card border border-danger bg-modalCard">
+  <div class="w-50 card border border-danger bg-modalCard">
   <h5 class="mt-3 mr-2 text-center">${detail.description}</h5>
   <div class="d-flex mt-2 justify-content-center gap-4">
-  <h6 class="bg-light border p-4 text-success fs-5 border-4 border-light rounded">${detail.pricing[0].price.slice(0,4)}<br>${detail.pricing[0].price.slice(4,10)}<br>
+  <h6 class="bg-light border py-2 px-2 text-success fs-6 border-4 text-center border-light rounded">${detail.pricing[0].price}<br>
   ${detail.pricing[0].plan}</h6>
-  <h6 class="bg-light border p-4 text-warning fs-5 border-4 border-light rounded">${detail.pricing[0].price.slice(0,4)}<br>${detail.pricing[0].price.slice(4,10)}<br>
-  ${detail.pricing[0].plan}</h6>
-  <h6 class="bg-light border p-4 fs-5 text-danger border-4 border-light rounded">${detail.pricing[0].price.slice(0,4)}<br>${detail.pricing[0].price.slice(4,10)}<br>
-  ${detail.pricing[0].plan}</h6>
+  <h6 class="bg-light border py-2 px-2 text-warning fs-6 border-4 border-light rounded text-center">${detail.pricing[1].price}<br>
+  ${detail.pricing[1].plan}</h6>
+  <h6 class="bg-light border py-2 px-2 fs-6 text-danger border-4 border-light rounded text-center">${detail.pricing[2].price}<br>
+  ${detail.pricing[2].plan}</h6>
   </div>
-  <div class="d-flex justify-content-center gap-3">
+  <div class=" d-flex justify-content-center gap-3">
   <div><h5 class="card-title mt-2">Features</h5>
   <ul class="text-secondary">
-  <li>${detail.features.feature_name}</li>
+  <li>${detail.features[1].feature_name!=null? detail.features[1].feature_name:"No data found"}</li>
+  <li>${detail.features[2].feature_name!=null? detail.features[2].feature_name:"No data found"}</li>
+  <li>${detail.features[3].feature_name!=null? detail.features[3].feature_name:"No data found"}</li>
 </ul></div>
   <div>
   <h5 class="card-title mt-2">Integrations</h5>
   <ul class="text-secondary">
-  ${generate(detail.integrations)}
+  ${generate(detail.integrations)!=null?generate(detail.integrations): "No data found"}
   </div>
   </div>
   </div>
-  <div class="card">
+  <div class="w-50 card text-center">
   <div class="d-flex position-relative">
   <img src=${detail.image_link[0]} class="img-fluid rounded-start w-auto" alt="...">
   <button class="btn btn-danger position-absolute top-0 end-0 py-1 px-2 position-absolute">${detail.accuracy.score? detail.accuracy.score*100 : 0}% accuracy</button>
   </div>
-  <h2>ABCD</h2>
+  <h4 class="mt-2">${detail.input_output_examples[0].input!=null?detail.input_output_examples[0].input:"No input"}</h4>
+  <p class="text-secondary">${detail.input_output_examples[0].output!=null?detail.input_output_examples[0].output:"No! Not Yet! Take a break!!!"}</p>
   </div>
   `;
         modalBody.appendChild(inModal);
