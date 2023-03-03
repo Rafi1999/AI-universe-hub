@@ -21,7 +21,14 @@ const ShowAIData = (data) =>{
   <li>${element.features ? element.features[2] : "Not Available"}</li>
 </ol>
         </div>
-        
+        <ul class="list-group">
+          <h5 class="mt-2">${element.name}</h5>
+          <div class="d-flex justify-content-between">
+          <p class="text-secondary"><i class="fa-solid fa-calendar-day"></i></i> ${element.published_in}</p>
+          <i class="fas fa-arrow-right" style="color:red"  data-bs-toggle="modal"
+        data-bs-target="#exampleModal"></i>
+          </div>
+        </ul>
         
         
         `;
