@@ -1,17 +1,26 @@
-const fetchAIData = () =>{
-  
-    fetch('https://openapi.programming-hero.com/api/ai/tools')
+const fetchAIData = (dataLimit) => {
+  fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(res => res.json())
-    .then(data => ShowAIData(data.data.tools))
+    .then(data => ShowAIData(data.data.tools,dataLimit))
 }
 
-const ShowAIData = (data) =>{
-    const DataContainer = document.getElementById('showAIData');
+const ShowAIData = (data,dataLimit) => {
+  const showAll = document.getElementById("show-all");
+  // showAll.textContent = '';
+  if(dataLimit && data.length>6){
     data = data.slice(0,6);
-    data.forEach(element => {
-        const card = document.createElement("div");
-        card.classList.add("card","w-25","p-3","col");
-        card.innerHTML = `
+    showAll.classList.remove('d-none');
+    
+  }else{
+    showAll.classList.add('d-none');
+    
+  }
+  const DataContainer = document.getElementById('showAIData');
+  
+  data.forEach(element => {
+    const card = document.createElement("div");
+    card.classList.add("card", "w-25", "p-3", "col");
+    card.innerHTML = `
         <img src=${element.image} class="card-img-top img-fluid rounded-start" alt="...">
         <div class="card-body">
           <h5 class="card-title mt-2">Features</h5>
@@ -32,14 +41,29 @@ const ShowAIData = (data) =>{
         
         
         `;
-        DataContainer.appendChild(card);
-    });
+    DataContainer.appendChild(card);
+  });
+  toggleSpinner(false);
 }
 
+const toggleSpinner = isLoading => {
+const loaderPart = document.getElementById("loader"); 
+if (isLoading){ 
+  loaderPart.classList.remove('d-none') 
+}
+else{
+  loaderPart.classList.add('d-none');
+} 
+}
+
+document.getElementById('btn-showall').addEventListener('click',function(){
+  toggleSpinner(true);
+  fetchAIData();
+})
 
 
 
-fetchAIData();
+fetchAIData(6);
 
 
 // onclick="fetchNewsDetail('${_id}')" 
