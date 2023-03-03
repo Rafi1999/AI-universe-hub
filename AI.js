@@ -18,15 +18,13 @@ const ShowAIData = (data,dataLimit) => {
   const DataContainer = document.getElementById('showAIData');
   data.forEach(element => {
     const card = document.createElement("div");
-    card.classList.add("card", "w-25", "p-3", "col");
+    card.classList.add("card", "w-25", "p-3", "col","mb-2");
     card.innerHTML = `
         <img src=${element.image} class="card-img-top img-fluid rounded-start" alt="...">
         <div class="card-body">
           <h5 class="card-title mt-2">Features</h5>
           <ol class="text-secondary">
-  <li>${element.features[0] ? element.features[0] : "Not Available"}</li>
-  <li>${element.features[1] ? element.features[1] : "Not Available"}</li>
-  <li>${element.features[2] ? element.features[2] : "Not Available"}</li>
+          ${generateFeature(element.features)}
 </ol>
         </div>
         <ul class="list-group">
@@ -59,6 +57,16 @@ document.getElementById('btn-showall').addEventListener('click',function(){
   toggleSpinner(true);
   fetchAIData();
 })
+
+
+const generateFeature = features =>{
+      let featureHTML= '';
+      for (let i = 0; i < features.length; i++){
+          featureHTML +=`<li>${features[i] ? features[i] : "Not Available"}</li>`;
+      }
+      return featureHTML;
+  }
+
 
 
 
