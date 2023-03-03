@@ -31,7 +31,7 @@ const ShowAIData = (data,dataLimit) => {
           <h5 class="mt-2">${element.name}</h5>
           <div class="d-flex justify-content-between">
           <p class="text-secondary"><i class="fa-solid fa-calendar-day"></i></i> ${element.published_in}</p>
-          <i class="fas fa-arrow-right" style="color:red"  data-bs-toggle="modal"
+          <i class="fas fa-arrow-right" onclick="fetchAiDetail('${element.id}');toggleSpinner(true)" style="color:red"  data-bs-toggle="modal"
         data-bs-target="#exampleModal"></i>
           </div>
         </ul>
@@ -67,8 +67,33 @@ const generateFeature = features =>{
       return featureHTML;
   }
 
+const fetchAiDetail = (id) =>{
+  let url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+  fetch(url)
+  .then(res => res.json())
+  .then(data => showAiDetail(data.data))
+}
 
+const showAiDetail = (detail)=>{
+  console.log(detail);
+  const modalBody = document.getElementById('modal-body');
+  const inModal = document.createElement("div");
+  inModal.classList.add("container","d-flex","gap-3","justify-content-center");
+  inModal.innerHTML = `
+  <div class=" card border border-danger bg-modalCard">
+  <h6 class="mt-3 mr-2 text-center">${detail.description}</h6>
+  </div>
+  <div class="card">
+  <div class="d-flex position-relative">
+  <img src=${detail.image_link[0]} class="img-fluid rounded-start w-auto" alt="...">
+  <button class="btn btn-danger position-absolute top-0 end-0 py-1 px-2 position-absolute">${detail.accuracy.score? detail.accuracy.score*100 : 0}% accuracy</button>
+  </div>
+  <h2>ABCD</h2>
+  </div>
+  `;
+        modalBody.appendChild(inModal);
 
+}
 
 fetchAIData(6);
 

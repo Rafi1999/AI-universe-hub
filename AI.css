@@ -1,4 +1,6 @@
 .text-all{
     font-family: 'Work Sans', sans-serif;
-
+}
+.bg-modalCard{
+    background: rgba(235, 87, 87, 0.05);
 }
