@@ -87,9 +87,9 @@ const showAiDetail = (detail)=>{
   <h6 class="bg-light border py-2 px-2 text-success fs-6 border-4 text-center border-light rounded">${(detail.pricing==null)? "Free of Cost": (detail.pricing[0].price==0)? "Free of Cost":(detail.pricing[0].price=="No cost")? "Free of Cost":detail.pricing[0].price}<br>
   ${(detail.pricing==null)? "Basic" : (detail.pricing[0].plan=="Free")?"Basic":detail.pricing[0].plan}</h6>
   <h6 class="bg-light border py-2 px-2 text-warning fs-6 border-4 border-light rounded text-center">${(detail.pricing==null)? "Free of Cost":(detail.pricing[1].price=="No cost")? "Free of Cost":detail.pricing[1].price}<br>
-  ${detail.pricing==null?"Free of Cost":detail.pricing[1].plan}</h6>
-  <h6 class="bg-light border py-2 px-2 fs-6 text-danger border-4 border-light rounded text-center">${detail.pricing[2].price!="No cost"?detail.pricing[2].price:"Free of cost"}<br>
-  ${detail.pricing[2].plan}</h6>
+  ${detail.pricing==null?"Pro":detail.pricing[1].plan}</h6>
+  <h6 class="bg-light border py-2 px-2 fs-6 text-danger border-4 border-light rounded text-center">${(detail.pricing==null)? "Free of Cost":detail.pricing[2].price!="No cost"?detail.pricing[2].price:"Free of cost"}<br>
+  ${(detail.pricing==null)? "Enterprise": detail.pricing[2].plan}</h6>
   </div>
   <div class=" d-flex justify-content-center gap-3">
   <div><h5 class="card-title mt-2">Features</h5>
@@ -101,7 +101,7 @@ const showAiDetail = (detail)=>{
   <div>
   <h5 class="card-title mt-2">Integrations</h5>
   <ul class="text-secondary">
-  ${generate(detail.integrations)!=null?generate(detail.integrations): "No data found"}
+  ${(detail.integrations==null)?"No data found": generate(detail.integrations)!=null?generate(detail.integrations): "No data found"}
   </div>
   </div>
   </div>
@@ -110,8 +110,8 @@ const showAiDetail = (detail)=>{
   <img src=${detail.image_link[0]} class="img-fluid rounded-start w-auto" alt="...">
   <button class="btn btn-danger position-absolute top-0 end-0 py-1 px-2 position-absolute">${detail.accuracy.score? detail.accuracy.score*100 : 0}% accuracy</button>
   </div>
-  <h4 class="mt-2">${detail.input_output_examples[0].input!=null?detail.input_output_examples[0].input:"No input"}</h4>
-  <p class="text-secondary">${detail.input_output_examples[0].output!=null?detail.input_output_examples[0].output:"No! Not Yet! Take a break!!!"}</p>
+  <h4 class="mt-2">${(detail.input_output_examples==null)?"Can you give any example?":detail.input_output_examples[0].input!=null? detail.input_output_examples[0].input:"Can you give any example?"}</h4>
+  <p class="text-secondary">${(detail.input_output_examples==null)?"No! Not Yet! Take a break!!!":detail.input_output_examples[0].output!=null?detail.input_output_examples[0].output:"No! Not Yet! Take a break!!!"}</p>
   </div>
   `;
         modalBody.appendChild(inModal);
