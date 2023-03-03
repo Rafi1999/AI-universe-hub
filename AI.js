@@ -24,7 +24,7 @@ const ShowAIData = (data,dataLimit) => {
         <div class="card-body">
           <h5 class="card-title mt-2">Features</h5>
           <ol class="text-secondary">
-          ${generateFeature(element.features)}
+          ${generate(element.features)}
 </ol>
         </div>
         <ul class="list-group">
@@ -59,7 +59,7 @@ document.getElementById('btn-showall').addEventListener('click',function(){
 })
 
 
-const generateFeature = features =>{
+const generate = features =>{
       let featureHTML= '';
       for (let i = 0; i < features.length; i++){
           featureHTML +=`<li>${features[i] ? features[i] : "Not Available"}</li>`;
@@ -77,11 +77,31 @@ const fetchAiDetail = (id) =>{
 const showAiDetail = (detail)=>{
   console.log(detail);
   const modalBody = document.getElementById('modal-body');
+  modalBody.textContent = "";
   const inModal = document.createElement("div");
   inModal.classList.add("container","d-flex","gap-3","justify-content-center");
   inModal.innerHTML = `
   <div class=" card border border-danger bg-modalCard">
-  <h6 class="mt-3 mr-2 text-center">${detail.description}</h6>
+  <h5 class="mt-3 mr-2 text-center">${detail.description}</h5>
+  <div class="d-flex mt-2 justify-content-center gap-4">
+  <h6 class="bg-light border p-4 text-success fs-5 border-4 border-light rounded">${detail.pricing[0].price.slice(0,4)}<br>${detail.pricing[0].price.slice(4,10)}<br>
+  ${detail.pricing[0].plan}</h6>
+  <h6 class="bg-light border p-4 text-warning fs-5 border-4 border-light rounded">${detail.pricing[0].price.slice(0,4)}<br>${detail.pricing[0].price.slice(4,10)}<br>
+  ${detail.pricing[0].plan}</h6>
+  <h6 class="bg-light border p-4 fs-5 text-danger border-4 border-light rounded">${detail.pricing[0].price.slice(0,4)}<br>${detail.pricing[0].price.slice(4,10)}<br>
+  ${detail.pricing[0].plan}</h6>
+  </div>
+  <div class="d-flex justify-content-center gap-3">
+  <div><h5 class="card-title mt-2">Features</h5>
+  <ul class="text-secondary">
+  <li>${detail.features.feature_name}</li>
+</ul></div>
+  <div>
+  <h5 class="card-title mt-2">Integrations</h5>
+  <ul class="text-secondary">
+  ${generate(detail.integrations)}
+  </div>
+  </div>
   </div>
   <div class="card">
   <div class="d-flex position-relative">
