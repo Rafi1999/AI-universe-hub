@@ -13,10 +13,9 @@ const ShowAIData = (data,dataLimit) => {
     
   }else{
     showAll.classList.add('d-none');
-    
+    data = data.slice(7,13);
   }
   const DataContainer = document.getElementById('showAIData');
-  
   data.forEach(element => {
     const card = document.createElement("div");
     card.classList.add("card", "w-25", "p-3", "col");
@@ -25,9 +24,9 @@ const ShowAIData = (data,dataLimit) => {
         <div class="card-body">
           <h5 class="card-title mt-2">Features</h5>
           <ol class="text-secondary">
-  <li>${element.features ? element.features[0] : "Not Available"}</li>
-  <li>${element.features ? element.features[1] : "Not Available"}</li>
-  <li>${element.features ? element.features[2] : "Not Available"}</li>
+  <li>${element.features[0] ? element.features[0] : "Not Available"}</li>
+  <li>${element.features[1] ? element.features[1] : "Not Available"}</li>
+  <li>${element.features[2] ? element.features[2] : "Not Available"}</li>
 </ol>
         </div>
         <ul class="list-group">
