@@ -16,26 +16,28 @@ const ShowAIData = (data,dataLimit) => {
     data = data.slice(6,13);
   }
   const DataContainer = document.getElementById('showAIData');
-  DataContainer.classList.add("col","col-1","col-md-3");
+  // DataContainer.classList.add("col","col-1","col-md-3");
   data.forEach(element => {
     const card = document.createElement("div");
-    card.classList.add("card", "w-25", "p-3","mb-2");
+    card.classList.add("col", "p-3","mb-2");
     card.innerHTML = `
-        <img src=${element.image} class="card-img-top img-fluid rounded-start" alt="...">
-        <div class="card-body">
-          <h5 class="card-title mt-2">Features</h5>
-          <ol class="text-secondary">
-          ${generate(element.features)}
-</ol>
-        </div>
-        <ul class="list-group">
-          <h5 class="mt-2">${element.name}</h5>
-          <div class="d-flex justify-content-between">
-          <p class="text-secondary"><i class="fa-solid fa-calendar-day"></i></i> ${element.published_in}</p>
-          <i class="fas fa-arrow-right" onclick="fetchAiDetail('${element.id}')" style="color:red"  data-bs-toggle="modal"
-        data-bs-target="#exampleModal"></i>
+        <div class="card h-100">
+          <img src=${element.image} class="card-img-top img-fluid rounded-start" alt="...">
+          <div class="card-body">
+            <h5 class="card-title mt-2">Features</h5>
+            <ol class="text-secondary">
+            ${generate(element.features)}
+  </ol>
           </div>
-        </ul>
+          <ul class="list-group mx-2">
+            <h5 class="mt-2">${element.name}</h5>
+            <div class="d-flex justify-content-between">
+            <p class="text-secondary"><i class="fa-solid fa-calendar-day"></i></i> ${element.published_in}</p>
+            <i class="fas fa-arrow-right" onclick="fetchAiDetail('${element.id}')" style="color:red"  data-bs-toggle="modal"
+          data-bs-target="#exampleModal"></i>
+            </div>
+          </ul>
+        </div>
         
         
         `;
@@ -82,16 +84,17 @@ const showAiDetail = (detail)=>{
   const modalBody = document.getElementById('modal-body');
   modalBody.textContent = "";
   const inModal = document.createElement("div");
-  inModal.classList.add("container","d-flex","gap-3","justify-content-center","w-auto","mb-3");
+  inModal.classList.add("container-fluid","d-flex","gap-3","justify-content-center","w-auto","mb-3","flex-column","flex-md-row");
   inModal.innerHTML = `
-  <div class="w-50 card border border-danger bg-modalCard">
+  <!-- first part -->
+  <div class="w-100 card border border-danger bg-modalCard">
   <h5 class="mt-3 mr-2 text-center">${detail.description}</h5>
-  <div class="d-flex mt-2 justify-content-center gap-4">
-  <h6 class="bg-light border py-2 px-2 text-success fs-6 border-4 text-center border-light rounded">${(detail.pricing==null)? "Free of Cost": (detail.pricing[0].price==0)? "Free of Cost":(detail.pricing[0].price=="No cost")? "Free of Cost":detail.pricing[0].price}<br>
+  <div class="d-flex mt-2 justify-content-around gap-1">
+  <h6 class="bg-light py-0 px-0 py-md-2 px-md-2 text-success fs-6 border-0 border-md-2 text-center border-light rounded">${(detail.pricing==null)? "Free of Cost": (detail.pricing[0].price==0)? "Free of Cost":(detail.pricing[0].price=="No cost")? "Free of Cost":detail.pricing[0].price}<br>
   ${(detail.pricing==null)? "Basic" : (detail.pricing[0].plan=="Free")?"Basic":detail.pricing[0].plan}</h6>
-  <h6 class="bg-light border py-2 px-2 text-warning fs-6 border-4 border-light rounded text-center">${(detail.pricing==null)? "Free of Cost":(detail.pricing[1].price=="No cost")? "Free of Cost":detail.pricing[1].price}<br>
+  <h6 class="bg-light py-0 px-0 py-md-2 px-md-2 text-warning fs-6 border-0 border-md-2 border-light rounded text-center">${(detail.pricing==null)? "Free of Cost":(detail.pricing[1].price=="No cost")? "Free of Cost":detail.pricing[1].price}<br>
   ${detail.pricing==null?"Pro":detail.pricing[1].plan}</h6>
-  <h6 class="bg-light border py-2 px-2 fs-6 text-danger border-4 border-light rounded text-center">${(detail.pricing==null)? "Free of Cost":detail.pricing[2].price!="No cost"?detail.pricing[2].price:"Free of cost"}<br>
+  <h6 class="bg-light  py-0 px-0 py-md-2 px-md-2 fs-6 text-danger border-0 border-md-2 border-light rounded text-center">${(detail.pricing==null)? "Free of Cost":detail.pricing[2].price!="No cost"?detail.pricing[2].price:"Free of cost"}<br>
   ${(detail.pricing==null)? "Enterprise": detail.pricing[2].plan}</h6>
   </div>
   <div class=" d-flex justify-content-center gap-3">
@@ -108,7 +111,8 @@ const showAiDetail = (detail)=>{
   </div>
   </div>
   </div>
-  <div class="w-50 card text-center">
+  <!-- second part -->
+  <div class="w-auto card text-center">
   <div class="d-flex position-relative">
   <img src=${detail.image_link[0]} class="img-fluid rounded-start w-auto" alt="...">
   <button class="btn btn-danger position-absolute top-0 end-0 py-1 px-2 position-absolute">${detail.accuracy.score? detail.accuracy.score*100 : 0}% accuracy</button>
@@ -141,26 +145,27 @@ const showSearchAIData = (data)=>{
   // }
   const DataContainer = document.getElementById('showAIData');
   DataContainer.textContent = '';
-  data.forEach( element=> {
-    // console.log(element.published_in);
+  data.forEach(element => {
     const card = document.createElement("div");
-    card.classList.add("card", "w-25", "p-3", "col","mb-2","col-8","col-md-4");
+    card.classList.add("col", "p-3","mb-2");
     card.innerHTML = `
-        <img src=${element.image} class="card-img-top img-fluid rounded-start" alt="...">
-        <div class="card-body">
-          <h5 class="card-title mt-2">Features</h5>
-          <ol class="text-secondary">
-          ${generate(element.features)}
-</ol>
-        </div>
-        <ul class="list-group">
-          <h5 class="mt-2">${element.name}</h5>
-          <div class="d-flex justify-content-between">
-          <p class="text-secondary"><i class="fa-solid fa-calendar-day"></i></i> ${element.published_in}</p>
-          <i class="fas fa-arrow-right" onclick="fetchAiDetail('${element.id}')" style="color:red"  data-bs-toggle="modal"
-        data-bs-target="#exampleModal"></i>
+        <div class="card h-100">
+          <img src=${element.image} class="card-img-top img-fluid rounded-start" alt="...">
+          <div class="card-body">
+            <h5 class="card-title mt-2">Features</h5>
+            <ol class="text-secondary">
+            ${generate(element.features)}
+  </ol>
           </div>
-        </ul>
+          <ul class="list-group mx-2">
+            <h5 class="mt-2">${element.name}</h5>
+            <div class="d-flex justify-content-between">
+            <p class="text-secondary"><i class="fa-solid fa-calendar-day"></i></i> ${element.published_in}</p>
+            <i class="fas fa-arrow-right" onclick="fetchAiDetail('${element.id}')" style="color:red"  data-bs-toggle="modal"
+          data-bs-target="#exampleModal"></i>
+            </div>
+          </ul>
+        </div>
         
         
         `;
