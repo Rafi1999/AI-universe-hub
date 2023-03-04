@@ -13,12 +13,13 @@ const ShowAIData = (data,dataLimit) => {
     
   }else{
     showAll.classList.add('d-none');
-    data = data.slice(7,13);
+    data = data.slice(6,13);
   }
   const DataContainer = document.getElementById('showAIData');
+  DataContainer.classList.add("col","col-1","col-md-3");
   data.forEach(element => {
     const card = document.createElement("div");
-    card.classList.add("card", "w-25", "p-3", "col","mb-2","col-8","col-md-4");
+    card.classList.add("card", "w-25", "p-3","mb-2");
     card.innerHTML = `
         <img src=${element.image} class="card-img-top img-fluid rounded-start" alt="...">
         <div class="card-body">
@@ -123,13 +124,13 @@ const showAiDetail = (detail)=>{
 const fetchSearchAIData = dataLimit =>{
   fetch('https://openapi.programming-hero.com/api/ai/tools')
     .then(res => res.json())
-    .then(data => showSearchAIData(data.data.tools,dataLimit));
+    .then(data => showSearchAIData(data.data.tools));
 }
 
-const showSearchAIData = (data,dataLimit)=>{
+const showSearchAIData = (data)=>{
   data.sort((a,b)=>new Date(a.published_in)-new Date(b.published_in));
   const showAll = document.getElementById("show-all");
-  // // showAll.textContent = '';
+  showAll.textContent = '';
   // if(dataLimit && data.length>6){
   //   data = data.slice(0,6);
   //   showAll.classList.remove('d-none');
@@ -141,7 +142,7 @@ const showSearchAIData = (data,dataLimit)=>{
   const DataContainer = document.getElementById('showAIData');
   DataContainer.textContent = '';
   data.forEach( element=> {
-    console.log(element.published_in);
+    // console.log(element.published_in);
     const card = document.createElement("div");
     card.classList.add("card", "w-25", "p-3", "col","mb-2","col-8","col-md-4");
     card.innerHTML = `
