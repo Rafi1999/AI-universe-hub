@@ -14,12 +14,12 @@
   <body class="text-all">
     <header class="text-center my-3">
         <h1 class="my-2">AI Universe Hub</h1>
-        <button class="btn btn-danger py-2">Sort by dates</button>        
+        <button onclick="fetchSearchAIData()" class="btn btn-danger py-2">Sort by dates</button>        
     </header>
     <main>
         <!--show all data-->
-        <section class="container">
-            <div class="row row-cols-3 gap-1 justify-content-evenly w-100" id="showAIData">
+        <section class="container-fluid">
+            <div class="row row-cols-sm-8 row-cols-md-4 gap-1 justify-content-evenly w-auto flex-md-row" id="showAIData">
             </div>
             <div id="show-all" class="text-center d-none">
               <div id="btn-showall" class="btn btn-danger my-4 py-3 px-5 ">Show All</div>
