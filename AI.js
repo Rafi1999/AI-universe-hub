@@ -3,7 +3,7 @@ const fetchAIData = (dataLimit) => {
     .then(res => res.json())
     .then(data => ShowAIData(data.data.tools,dataLimit))
 }
-
+// Show All AI Data
 const ShowAIData = (data,dataLimit) => {
   const showAll = document.getElementById("show-all");
   // showAll.textContent = '';
@@ -38,14 +38,12 @@ const ShowAIData = (data,dataLimit) => {
             </div>
           </ul>
         </div>
-        
-        
         `;
     DataContainer.appendChild(card);
   });
   toggleSpinner(false);
 }
-
+// spinner 
 const toggleSpinner = isLoading => {
 const loaderPart = document.getElementById("loader"); 
 if (isLoading){ 
@@ -56,12 +54,13 @@ else{
 } 
 }
 
+// button to show all Data
 document.getElementById('btn-showall').addEventListener('click',function(){
   toggleSpinner(true);
   fetchAIData();
 })
 
-
+//finding feature and integration data function
 const generate = features =>{
       let featureHTML= '';
       for (let i = 0; i < features.length; i++){
@@ -70,7 +69,7 @@ const generate = features =>{
       return featureHTML;
   }
 
-
+// fetching Data in detail
 const fetchAiDetail = (id) =>{
   let url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
   fetch(url)
@@ -130,7 +129,7 @@ const fetchSearchAIData = dataLimit =>{
     .then(res => res.json())
     .then(data => showSearchAIData(data.data.tools));
 }
-
+// show sorted data
 const showSearchAIData = (data)=>{
   data.sort((a,b)=>new Date(a.published_in)-new Date(b.published_in));
   const showAll = document.getElementById("show-all");
